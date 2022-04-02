@@ -3,7 +3,6 @@ package com.sparta.delivery.service;
 import com.sparta.delivery.dto.FoodRequestDto;
 import com.sparta.delivery.model.Food;
 import com.sparta.delivery.repository.FoodRepository;
-import com.sparta.delivery.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +26,8 @@ public class FoodService {
             if(foodRequestDto.getPrice() % 100 != 0)
                 throw new IllegalArgumentException();
 
-            // 이름 중복
+            // 음식명 중복
             List<Food> foodList = foodRepository.findByRestaurantIdAndName(restaurantId, foodRequestDto.getName());
-            System.out.println(foodList);
             if (foodList.size() > 0) {
                 throw new IllegalArgumentException();
             }
@@ -40,6 +38,7 @@ public class FoodService {
         }
 
     }
+    // 메뉴판 조회
     public List<Food> getListFood(Long restaurantId) {
         return foodRepository.findAllByRestaurantId(restaurantId);
     }
