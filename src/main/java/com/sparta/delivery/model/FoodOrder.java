@@ -19,9 +19,6 @@ public class FoodOrder {
     @Column (nullable = false)
     private int price;
 
-//    @OneToOne
-//    private Food food;
-
     @Column (nullable = false)
     private int quantity;
 
