@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 public class Food {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -19,7 +19,7 @@ public class Food {
     private String name;
 
     @Column(nullable = false)
-    private Long price;
+    private int price;
 
     @Column(nullable = false)
     private Long restaurantId;

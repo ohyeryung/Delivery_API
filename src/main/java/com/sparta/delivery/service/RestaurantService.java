@@ -1,6 +1,5 @@
 package com.sparta.delivery.service;
 
-import com.sparta.delivery.dto.FoodRequestDto;
 import com.sparta.delivery.dto.RestaurantRequestDto;
 import com.sparta.delivery.model.Restaurant;
 import com.sparta.delivery.repository.RestaurantRepository;

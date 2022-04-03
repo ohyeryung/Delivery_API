@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @NoArgsConstructor
-@Entity
 @Getter
+@Entity
 public class Restaurant {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -18,10 +18,10 @@ public class Restaurant {
     private String name;
 
     @Column(nullable = false)
-    private Long minOrderPrice;
+    private int minOrderPrice;
 
     @Column(nullable = false)
-    private Long deliveryFee;
+    private int deliveryFee;
 
     public Restaurant(RestaurantRequestDto requestDto) {
         this.name = requestDto.getName();
