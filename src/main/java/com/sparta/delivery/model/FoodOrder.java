@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 public class FoodOrder {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -27,4 +27,5 @@ public class FoodOrder {
         this.price = food.getPrice()*quantity;
         this.quantity = quantity;
     }
+
 }

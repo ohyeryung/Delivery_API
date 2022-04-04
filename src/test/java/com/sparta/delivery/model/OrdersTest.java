@@ -363,6 +363,7 @@ class OrdersTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
+
         assertEquals(1, response.getBody().length);
 
         OrderDto orderDto = response.getBody()[0];
