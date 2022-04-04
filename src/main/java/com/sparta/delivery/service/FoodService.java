@@ -26,11 +26,7 @@ public class FoodService {
             if(foodRequestDto.getPrice() % 100 != 0)
                 throw new IllegalArgumentException();
 
-            // 음식명 중복
-            List<Food> foodList = foodRepository.findByRestaurantIdAndName(restaurantId, foodRequestDto.getName());
-            if (foodList.size() > 0) {
-                throw new IllegalArgumentException();
-            }
+            extracted(restaurantId, foodRequestDto);
 
             Food food = new Food(foodRequestDto, restaurantId);
             foodRepository.save(food);
@@ -38,6 +34,15 @@ public class FoodService {
         }
 
     }
+
+    private void extracted(Long restaurantId, FoodRequestDto foodRequestDto) {
+        // 음식명 중복
+        List<Food> foodList = foodRepository.findByRestaurantIdAndName(restaurantId, foodRequestDto.getName());
+        if (foodList.size() > 0) {
+            throw new IllegalArgumentException();
+        }
+    }
+
     // 메뉴판 조회
     public List<Food> getListFood(Long restaurantId) {
         return foodRepository.findAllByRestaurantId(restaurantId);

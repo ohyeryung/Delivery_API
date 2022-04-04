@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 public class Orders {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -26,12 +26,13 @@ public class Orders {
 
     // Orders Entity를 기준으로 FoodOrder가 여러개 이므로 OneToMany사용
     @OneToMany
-    private List<FoodOrder> foodOrders;
+    @JoinColumn(name = "FOODS_ID")
+    private List<FoodOrder> foods;
 
     public Orders(String restaurantName, int deliveryFee, int totalPrice, List<FoodOrder> foodOrderList) {
         this.restaurantName = restaurantName;
         this.deliveryFee = deliveryFee;
         this.totalPrice = totalPrice;
-        this.foodOrders = foodOrderList;
+        this.foods = foodOrderList;
     }
 }
