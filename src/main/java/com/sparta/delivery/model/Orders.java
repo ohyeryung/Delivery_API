@@ -24,6 +24,7 @@ public class Orders {
     @Column (nullable = false)
     private int totalPrice;
 
+    // Orders Entity를 기준으로 FoodOrder가 여러개 이므로 OneToMany사용
     @OneToMany
     private List<FoodOrder> foodOrders;
 

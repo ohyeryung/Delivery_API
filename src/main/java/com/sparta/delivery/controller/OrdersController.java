@@ -13,11 +13,13 @@ import java.util.List;
 public class OrdersController {
     private final OrdersService ordersService;
 
+    // 주문 등록
     @PostMapping("/order/request")
     public OrderDto registOrder(@RequestBody OrderRequestDto requestDto) {
         return ordersService.registOrder(requestDto);
     }
 
+    // 주문 조회
     @GetMapping("/orders")
     public List<OrderDto> getOrders() {
         List<OrderDto> ordersList = ordersService.getOrders();
