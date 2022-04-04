@@ -51,18 +51,16 @@ public class OrdersService {
 
             int quantity = foodOrderRequestDto.getQuantity();
 
-            // 주문수량(quantity) 허용값(1 ~ 100)이 아니면 에러 발생
-            if (quantity < 1 || quantity > 100)
-                throw new IllegalArgumentException();
+            extracted(quantity);
 
             // foodOrder에 food(name, price, restaurantId)와 quantity 저장 (DB용)
             FoodOrder foodOrder = new FoodOrder(food, quantity);
 
+            totalPrice += foodOrder.getPrice();
+
             FoodOrderList.add(foodOrder);
 
             foodOrderRepository.save(foodOrder);
-
-            totalPrice += foodOrder.getPrice();
 //--------------------------------------------------------------------------------------------------------------
 
             // foodsOrderDto에 음식name, quantity, totalPrice 저장 (Controller용)
@@ -87,38 +85,45 @@ public class OrdersService {
         return orderDto;
     }
 
+    private void extracted(int quantity) {
+        // 주문수량(quantity) 허용값(1 ~ 100)이 아니면 에러 발생
+        if (quantity < 1 || quantity > 100)
+            throw new IllegalArgumentException();
+    }
+
     // 주문 조회하기
-    public List<OrderDto> getOrders() {
+    public List<Orders> getOrders() {
+        return ordersRepository.findAll();
 
-        // Orders의 전체 주문 정보 가져오기
-        List<Orders> orders = ordersRepository.findAll();
+//        // Orders의 전체 주문 정보 가져오기
+//        List<Orders> orders = ordersRepository.findAll();
+//
+//        // OrderDto 형식의 List 생성해주기 (빈 값)
+//        List<OrderDto> ordersList = new ArrayList<>();
+//
+//        // 전체 주문 정보(Orders) List 중 하나만 찾기, 하나에 List에 해당하는 값 : orders1
+//        for (Orders orders1 : orders) {
+//            String restaurantName = orders1.getRestaurantName();
+//            int deliveryFee = orders1.getDeliveryFee();
+//            int totalPrice = orders1.getTotalPrice();
+//
+//            // FoodOrderDto 형식의 List 생성 (빈 값)
+//            List<FoodOrderDto> foodOrderDtos = new ArrayList<>();
+//
+//            // 전체 음식 정보(FoodOrder) List 중 하나만 찾기 , 하나의 List에 해당하는 값 : foodOrder
+//            for (Foods foodOrder : orders1.getFoodOrders()) {
+//                String name = foodOrder.getName();
+//                int quantity = foodOrder.getQuantity();
+//                int price = foodOrder.getPrice();
+//
+//                // 빈 List에 값 넣어주기
+//                FoodOrderDto foodOrderDto = new FoodOrderDto(name, quantity, price);
+//                foodOrderDtos.add(foodOrderDto);
+//            }
+//            // 빈 List에 값 넣어주기
+//            OrderDto orders2 = new OrderDto(restaurantName, deliveryFee,totalPrice, foodOrderDtos);
+//            ordersList.add(orders2);
 
-        // OrderDto 형식의 List 생성해주기 (빈 값)
-        List<OrderDto> ordersList = new ArrayList<>();
-
-        // 전체 주문 정보(Orders) List 중 하나만 찾기, 하나에 List에 해당하는 값 : orders1
-        for (Orders orders1 : orders) {
-            String restaurantName = orders1.getRestaurantName();
-            int deliveryFee = orders1.getDeliveryFee();
-            int totalPrice = orders1.getTotalPrice();
-
-            // FoodOrderDto 형식의 List 생성 (빈 값)
-            List<FoodOrderDto> foodOrderDtos = new ArrayList<>();
-
-            // 전체 음식 정보(FoodOrder) List 중 하나만 찾기 , 하나의 List에 해당하는 값 : foodOrder
-            for (FoodOrder foodOrder : orders1.getFoodOrders()) {
-                String name = foodOrder.getName();
-                int quantity = foodOrder.getQuantity();
-                int price = foodOrder.getPrice();
-
-                // 빈 List에 값 넣어주기
-                FoodOrderDto foodOrderDto = new FoodOrderDto(name, quantity, price);
-                foodOrderDtos.add(foodOrderDto);
-            }
-            // 빈 List에 값 넣어주기
-            OrderDto orders2 = new OrderDto(restaurantName, deliveryFee,totalPrice, foodOrderDtos);
-            ordersList.add(orders2);
-        }
-        return ordersList;
     }
 }
+

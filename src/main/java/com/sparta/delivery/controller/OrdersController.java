@@ -2,6 +2,7 @@ package com.sparta.delivery.controller;
 
 import com.sparta.delivery.dto.OrderDto;
 import com.sparta.delivery.dto.OrderRequestDto;
+import com.sparta.delivery.model.Orders;
 import com.sparta.delivery.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,8 @@ public class OrdersController {
 
     // 주문 조회
     @GetMapping("/orders")
-    public List<OrderDto> getOrders() {
-        List<OrderDto> ordersList = ordersService.getOrders();
+    public List<Orders> getOrders() {
+        List<Orders> ordersList = ordersService.getOrders();
         return ordersList;
     }
 }

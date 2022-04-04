@@ -22,7 +22,7 @@ public class FoodOrder {
     @Column (nullable = false)
     private int quantity;
 
-    public FoodOrder (Food food, int quantity) {
+    public FoodOrder(Food food, int quantity) {
         this.name = food.getName();
         this.price = food.getPrice()*quantity;
         this.quantity = quantity;
